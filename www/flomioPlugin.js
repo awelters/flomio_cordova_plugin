@@ -3,21 +3,21 @@ var exec = require('cordova/exec');
  * Constructor
  */
 module.exports = {
-    init: (success, failure) => {
+    init: function(success, failure) {
         exec(success, failure, 'FlomioPlugin', 'init', []);
     },
 
-    selectDeviceType: (deviceType, success, failure) => {
+    selectDeviceType: function(deviceType, success, failure) {
         exec(success, failure, 'FlomioPlugin', 'selectDeviceType', [deviceType]);
         // deviceType is "FloJack-BZR", "FloJack-MSR", "FloBLE-EMV" or "FloBLE-Plus" (case insensitive)
     },
 
-    selectSpecificDeviceId: (specificDeviceId, success, failure) => {
+    selectSpecificDeviceId: function(specificDeviceId, success, failure) {
         exec(success, failure, 'FlomioPlugin', 'selectSpecificDeviceId', [specificDeviceId]);
         // deviceType is "FloJack-BZR", "FloJack-MSR", "FloBLE-EMV" or "FloBLE-Plus" (case insensitive)
     },
 
-    setConfiguration: (configurationDictionary, success, failure) => {
+    setConfiguration: function(configurationDictionary, success, failure) {
         var configurationArray = new Array();
         var keyArray = new Array("scanPeriod", "scanSound", "readerState", "powerOperation");
         // convert dictionary to array
@@ -31,67 +31,67 @@ module.exports = {
         exec(success, failure, "FlomioPlugin", "setConfiguration", configurationArray);
     },
 
-    getConfiguration: (resultCallback, configurationDictionary, success, failure) => {
+    getConfiguration: function(resultCallback, configurationDictionary, success, failure) {
         exec(
-            (scanPeriod, scanSound) => { resultCallback({ scanPeriod: scanPeriod, scanSound: scanSound }) },
-            (failure) => { console.log("ERROR: FlomioPlugin.getConfiguration: " + failure) },
+            function(scanPeriod, scanSound) { resultCallback({ scanPeriod: scanPeriod, scanSound: scanSound }) },
+            function(failure) { console.log("ERROR: FlomioPlugin.getConfiguration: " + failure) },
             "FlomioPlugin", "getConfiguration", []);
     },
 
-    stopReaders: (resultCallback, success, failure) => {
+    stopReaders: function(resultCallback, success, failure) {
         exec(
-            (scanPeriod, scanSound) => { resultCallback({ deviceId: deviceId }) },
-            (failure) => { console.log("ERROR: FlomioPlugin.stopReaders: " + failure) },
+            function(scanPeriod, scanSound) { resultCallback({ deviceId: deviceId }) },
+            function(failure) { console.log("ERROR: FlomioPlugin.stopReaders: " + failure) },
             "FlomioPlugin", "stopReaders", []);
     },
 
-    sleepReaders: (resultCallback, success, failure) => {
+    sleepReaders: function(resultCallback, success, failure) {
         exec(
-            () => {},
-            (failure) => { console.log("ERROR: FlomioPlugin.sleepReaders: " + failure) },
+            function() {},
+            function(failure) { console.log("ERROR: FlomioPlugin.sleepReaders: " + failure) },
             "FlomioPlugin", "sleepReaders", []);
     },
 
-    startReaders: (resultCallback, success, failure) => {
+    startReaders: function(resultCallback, success, failure) {
         exec(
-            () => {},
-            (failure) => { console.log("ERROR: FlomioPlugin.startReaders: " + failure) },
+            function() {},
+            function(failure) { console.log("ERROR: FlomioPlugin.startReaders: " + failure) },
             "FlomioPlugin", "startReaders", []);
     },
 
-    sendApdu: (resultCallback, deviceId, apdu, success, failure) => {
+    sendApdu: function(resultCallback, deviceId, apdu, success, failure) {
         exec(
-            (deviceId, responseApdu) => { resultCallback({ deviceId: deviceId, responseApdu: responseApdu }) },
-            (failure) => { console.log("ERROR: FlomioPlugin.sendApdu: " + failure) },
+            function(deviceId, responseApdu) { resultCallback({ deviceId: deviceId, responseApdu: responseApdu }) },
+            function(failure) { console.log("ERROR: FlomioPlugin.sendApdu: " + failure) },
             "FlomioPlugin", "sendApdu", [deviceId, apdu]);
     },
 
     // Delegate/Event Listeners
-    addConnectedDevicesListener: (resultCallback, success, failure) => {
+    addConnectedDevicesListener: function(resultCallback, success, failure) {
         exec(
-            (deviceIdList) => { resultCallback(deviceIdList) },
-            (failure) => { console.log("ERROR: FlomioPlugin.addConnectedDevicesListener: " + failure) },
+            function(deviceIdList) { resultCallback(deviceIdList) },
+            function(failure) { console.log("ERROR: FlomioPlugin.addConnectedDevicesListener: " + failure) },
             "FlomioPlugin", "setConnectedDevicesUpdateCallback", []);
     },
 
-    addTagStatusChangeListener: (resultCallback, success, failure) => {
+    addTagStatusChangeListener: function(resultCallback, success, failure) {
         exec(
-            (deviceId, status) => { resultCallback({ deviceId: deviceId, status: status }) },
-            (failure) => { console.log("ERROR: FlomioPlugin.addTagStatusChangeListener: " + failure) },
+            function(deviceId, status) { resultCallback({ deviceId: deviceId, status: status }) },
+            function(failure) { console.log("ERROR: FlomioPlugin.addTagStatusChangeListener: " + failure) },
             "FlomioPlugin", "setCardStatusChangeCallback", []);
     },
 
-    addTagDiscoveredListener: (resultCallback, success, failure) => {
+    addTagDiscoveredListener: function(resultCallback, success, failure) {
         exec(
-            (deviceId, tagUid) => { resultCallback({ tagUid: tagUid, deviceId: deviceId }) },
-            (failure) => { console.log("ERROR: FlomioPlugin.addTagDiscoveredListener: " + failure) },
+            function(deviceId, tagUid) { resultCallback({ tagUid: tagUid, deviceId: deviceId }) },
+            function(failure) { console.log("ERROR: FlomioPlugin.addTagDiscoveredListener: " + failure) },
             "FlomioPlugin", "setTagDiscoveredCallback", []);
     },
 
-    addNdefListener: (resultCallback, success, failure) => {
+    addNdefListener: function(resultCallback, success, failure) {
         exec(
-            (deviceId, payload) => { resultCallback({ payload: payload, deviceId: deviceId }) },
-            (failure) => { console.log("ERROR: FlomioPlugin.addNdefListener: " + failure) },
+            function(deviceId, payload) { resultCallback({ payload: payload, deviceId: deviceId }) },
+            function(failure) { console.log("ERROR: FlomioPlugin.addNdefListener: " + failure) },
             "FlomioPlugin", "setNdefDiscoveredCallback", []);
     },
 
@@ -105,10 +105,10 @@ module.exports = {
         this.write(resultCallback, deviceId, hexString)
     },
 
-    write: (resultCallback, deviceId, dataHexString, success, failure) => {
+    write: function(resultCallback, deviceId, dataHexString, success, failure) {
         exec(
-            (deviceId, payload) => { resultCallback({ payload: payload, deviceId: deviceId }) },
-            (failure) => { console.log("ERROR: FlomioPlugin.write: " + failure) },
+            function(deviceId, payload) { resultCallback({ payload: payload, deviceId: deviceId }) },
+            function(failure) { console.log("ERROR: FlomioPlugin.write: " + failure) },
             "FlomioPlugin", "write", [deviceId, dataHexString]);
     },
 }
