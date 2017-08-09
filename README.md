@@ -19,9 +19,9 @@ meteor create flomio-plugin-example-app && cd $_
 - Add the plugin to it.
 
 ```bash
-cordova plugin add https://github.com/flomio/flomio_cordova_plugin#<latest-commit-code>
+cordova plugin add https://github.com/awelters/flomio_cordova_plugin#<latest-commit-code>
 --
-meteor add cordova:com.flomio.sdk@https://github.com/flomio/flomio_cordova_plugin/tarball/<latest-commit-code>
+meteor add cordova:com.flomio.sdk@https://github.com/awelters/flomio_cordova_plugin/tarball/<latest-commit-code>
 ```
 
 - Register plugin within `config.xml` of your app in Cordova. Meteor takes care of this for you (so skip this step).
